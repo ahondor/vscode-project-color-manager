@@ -69,35 +69,23 @@ export class ProjectColorManager {
             return;
         }
 
-        const vscodeDir = path.join(workspaceFolder.uri.fsPath, '.vscode');
-        const settingsPath = path.join(vscodeDir, 'settings.json');
-
-        // Create .vscode folder if it doesn't exist
-        if (!fs.existsSync(vscodeDir)) {
-            fs.mkdirSync(vscodeDir, { recursive: true });
-        }
-
-        let settings: any = {};
-        
-        // Read existing settings if file exists
-        if (fs.existsSync(settingsPath)) {
-            try {
-                const settingsContent = fs.readFileSync(settingsPath, 'utf8');
-                settings = JSON.parse(settingsContent);
-            } catch (error) {
-                console.error('Error reading settings.json:', error);
-            }
-        }
-
-        // Update color
-        if (!settings['workbench.colorCustomizations']) {
-            settings['workbench.colorCustomizations'] = {};
-        }
-        settings['workbench.colorCustomizations']['titleBar.activeBackground'] = colorItem.color;
-
-        // Save settings
         try {
-            fs.writeFileSync(settingsPath, JSON.stringify(settings, null, 4));
+            // Use VS Code API to safely update workspace settings
+            // This will only modify the specific setting we need
+            const config = vscode.workspace.getConfiguration('workbench', workspaceFolder.uri);
+            
+            // Get current colorCustomizations or create empty object
+            const colorCustomizations: any = config.get('colorCustomizations', {});
+            
+            // Update only the titleBar.activeBackground property
+            const updatedColorCustomizations = {
+                ...colorCustomizations,
+                'titleBar.activeBackground': colorItem.color
+            };
+            
+            // Update the setting in workspace scope (will create/update .vscode/settings.json)
+            await config.update('colorCustomizations', updatedColorCustomizations, vscode.ConfigurationTarget.Workspace);
+            
             vscode.window.showInformationMessage(`Project color changed to "${colorItem.name}"`);
             
             // Add to recent colors
@@ -105,7 +93,7 @@ export class ProjectColorManager {
             this.updateStatusBar();
         } catch (error) {
             vscode.window.showErrorMessage('Error saving settings');
-            console.error('Error writing settings.json:', error);
+            console.error('Error updating workspace settings:', error);
         }
     }
 
@@ -260,56 +248,37 @@ export class ProjectColorManager {
             return;
         }
 
-        const settingsPath = path.join(workspaceFolder.uri.fsPath, '.vscode', 'settings.json');
-        
-        if (!fs.existsSync(settingsPath)) {
-            vscode.window.showInformationMessage('Color is already set to default');
-            this.updateStatusBar();
-            return;
-        }
-
         try {
-            const settingsContent = fs.readFileSync(settingsPath, 'utf8');
+            // Use VS Code API to safely update workspace settings
+            const config = vscode.workspace.getConfiguration('workbench', workspaceFolder.uri);
             
-            let settings: any = {};
+            // Get current colorCustomizations
+            const colorCustomizations: any = config.get('colorCustomizations', {});
             
-            // Check if file is not empty
-            if (settingsContent.trim()) {
-                try {
-                    settings = JSON.parse(settingsContent);
-                } catch (parseError) {
-                    console.error('JSON parsing error:', parseError);
-                    vscode.window.showErrorMessage('settings.json file has invalid JSON format');
-                    return;
-                }
-            }
-            
-            const hasColorCustomizations = settings['workbench.colorCustomizations'];
-            const hasTitleBarColor = hasColorCustomizations?.['titleBar.activeBackground'];
-            
-            if (hasTitleBarColor) {
-                delete settings['workbench.colorCustomizations']['titleBar.activeBackground'];
-                
-                // If workbench.colorCustomizations became empty, remove it
-                if (settings['workbench.colorCustomizations'] && 
-                    Object.keys(settings['workbench.colorCustomizations']).length === 0) {
-                    delete settings['workbench.colorCustomizations'];
-                }
-                
-                // If settings became completely empty, write empty object
-                const newContent = Object.keys(settings).length === 0 ? 
-                    '{}' : 
-                    JSON.stringify(settings, null, 4);
-                
-                fs.writeFileSync(settingsPath, newContent);
-                vscode.window.showInformationMessage('Color reset to default');
-                this.updateStatusBar();
-            } else {
+            // Check if titleBar.activeBackground exists
+            if (!colorCustomizations['titleBar.activeBackground']) {
                 vscode.window.showInformationMessage('Color is already set to default');
+                this.updateStatusBar();
+                return;
             }
+            
+            // Create a copy without titleBar.activeBackground
+            const updatedColorCustomizations = { ...colorCustomizations };
+            delete updatedColorCustomizations['titleBar.activeBackground'];
+            
+            // If colorCustomizations becomes empty, set to undefined to remove the property
+            const finalValue = Object.keys(updatedColorCustomizations).length === 0 
+                ? undefined 
+                : updatedColorCustomizations;
+            
+            // Update the setting in workspace scope
+            await config.update('colorCustomizations', finalValue, vscode.ConfigurationTarget.Workspace);
+            
+            vscode.window.showInformationMessage('Color reset to default');
+            this.updateStatusBar();
         } catch (error) {
             vscode.window.showErrorMessage(`Error resetting settings: ${error}`);
-            console.error('Error processing settings.json:', error);
+            console.error('Error updating workspace settings:', error);
         }
     }
 
