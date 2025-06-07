@@ -1,0 +1,927 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VSCode Colors Palette</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            background: #1e1e1e;
+            color: #cccccc;
+            margin: 0;
+            padding: 20px;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            text-align: center;
+            color: #ffffff;
+            margin-bottom: 30px;
+            font-size: 2.2em;
+        }
+
+        .brightness-section {
+            margin-bottom: 40px;
+            background: #252526;
+            border-radius: 12px;
+            padding: 25px;
+            border-left: 4px solid;
+        }
+
+        .brightness-section.dark {
+            border-left-color: #4a4a4a;
+        }
+
+        .brightness-section.medium {
+            border-left-color: #7a7a7a;
+        }
+
+        .brightness-section.bright {
+            border-left-color: #ffd700;
+        }
+
+        .section-title {
+            font-size: 1.4em;
+            font-weight: 600;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-title .emoji {
+            font-size: 1.2em;
+        }
+
+        .dark .section-title {
+            color: #a0a0a0;
+        }
+
+        .medium .section-title {
+            color: #c0c0c0;
+        }
+
+        .bright .section-title {
+            color: #ffd700;
+        }
+
+        .colors-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .color-card {
+            background: #2d2d30;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+            transition: transform 0.2s ease;
+        }
+
+        .color-card:hover {
+            transform: translateY(-2px);
+        }
+
+        .color-preview {
+            width: 100%;
+            height: 80px;
+            border-radius: 6px;
+            margin-bottom: 15px;
+            border: 2px solid #404040;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .color-preview::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 30px;
+            background: linear-gradient(90deg, #3c3c3c 0%, #4a4a4a 100%);
+            border-bottom: 1px solid #555;
+        }
+
+        .color-info {
+            text-align: center;
+        }
+
+        .color-name {
+            font-size: 1.1em;
+            font-weight: 600;
+            color: #ffffff;
+            margin-bottom: 5px;
+        }
+
+        .color-hex {
+            font-family: 'Courier New', monospace;
+            font-size: 1.1em;
+            color: #569cd6;
+            background: #1e1e1e;
+            padding: 5px 10px;
+            border-radius: 4px;
+            margin-bottom: 8px;
+            display: inline-block;
+            cursor: pointer;
+            transition: background 0.2s ease;
+        }
+
+        .color-hex:hover {
+            background: #2d2d30;
+        }
+
+        .color-usage {
+            font-size: 0.9em;
+            color: #9d9d9d;
+            font-style: italic;
+        }
+
+        .recommendations {
+            background: #252526;
+            border-radius: 8px;
+            padding: 25px;
+            margin-top: 30px;
+        }
+
+        .recommendations h2 {
+            color: #ffffff;
+            margin-bottom: 20px;
+            font-size: 1.5em;
+        }
+
+        .rec-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 12px;
+            padding: 8px;
+            border-radius: 4px;
+            transition: background 0.2s ease;
+        }
+
+        .rec-item:hover {
+            background: #2d2d30;
+        }
+
+        .rec-color {
+            width: 20px;
+            height: 20px;
+            border-radius: 4px;
+            margin-right: 15px;
+            border: 1px solid #555;
+        }
+
+        .rec-text {
+            color: #cccccc;
+        }
+
+        .rec-project {
+            font-weight: 600;
+            color: #4fc3f7;
+        }
+
+        .copy-message {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #4caf50;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 4px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: 1000;
+        }
+
+        .copy-message.show {
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎨 Кольори для VSCode (66 відтінків)</h1>
+
+        <!-- Темні кольори -->
+        <div class="brightness-section dark">
+            <h2 class="section-title">
+                <span class="emoji">🌙</span>
+                Темні кольори (для фокусної роботи)
+            </h2>
+            <div class="colors-grid">
+                <div class="color-card">
+                    <div class="color-preview" style="background: #394A39;"></div>
+                    <div class="color-info">
+                        <div class="color-name">М'ятно-зелений</div>
+                        <div class="color-hex" onclick="copyToClipboard('#394A39')">#394A39</div>
+                        <div class="color-usage">Природний, заспокійливий</div>
+                    </div>
+                </div>
+
+                <div class="color-card">
+                    <div class="color-preview" style="background: #393F4A;"></div>
+                    <div class="color-info">
+                        <div class="color-name">Приглушений синій</div>
+                        <div class="color-hex" onclick="copyToClipboard('#393F4A')">#393F4A</div>
+                        <div class="color-usage">Професійний, надійний</div>
+                    </div>
+                </div>
+
+                <div class="color-card">
+                    <div class="color-preview" style="background: #4A3939;"></div>
+                    <div class="color-info">
+                        <div class="color-name">Теплий коричневий</div>
+                        <div class="color-hex" onclick="copyToClipboard('#4A3939')">#4A3939</div>
+                        <div class="color-usage">Затишний, стабільний</div>
+                    </div>
+                </div>
+
+                <div class="color-card">
+                    <div class="color-preview" style="background: #3F394A;"></div>
+                    <div class="color-info">
+                        <div class="color-name">Лавандовий сірий</div>
+                        <div class="color-hex" onclick="copyToClipboard('#3F394A')">#3F394A</div>
+                        <div class="color-usage">Елегантний, витончений</div>
+                    </div>
+                </div>
+
+                <div class="color-card">
+                    <div class="color-preview" style="background: #4A4339;"></div>
+                    <div class="color-info">
+                        <div class="color-name">Золотисто-сірий</div>
+                        <div class="color-hex" onclick="copyToClipboard('#4A4339')">#4A4339</div>
+                        <div class="color-usage">Теплий, комфортний</div>
+                    </div>
+                </div>
+
+                <div class="color-card">
+                    <div class="color-preview" style="background: #394A4A;"></div>
+                    <div class="color-info">
+                        <div class="color-name">Синьо-сталевий ⭐</div>
+                        <div class="color-hex" onclick="copyToClipboard('#394A4A')">#394A4A</div>
+                        <div class="color-usage">Оновлений, з більшим синім</div>
+                    </div>
+                </div>
+
+                <div class="color-card">
+                    <div class="color-preview" style="background: #4A3943;"></div>
+                    <div class="color-info">
+                        <div class="color-name">Рожево-сірий</div>
+                        <div class="color-hex" onclick="copyToClipboard('#4A3943')">#4A3943</div>
+                        <div class="color-usage">М'який, делікатний</div>
+                    </div>
+                </div>
+
+                <div class="color-card">
+                    <div class="color-preview" style="background: #3A4A39;"></div>
+                    <div class="color-info">
+                        <div class="color-name">Оливковий</div>
+                        <div class="color-hex" onclick="copyToClipboard('#3A4A39')">#3A4A39</div>
+                        <div class="color-usage">Натуральний, збалансований</div>
+                    </div>
+                </div>
+
+                <div class="color-card">
+                    <div class="color-preview" style="background: #463A4A;"></div>
+                    <div class="color-info">
+                        <div class="color-name">Сливовий сірий</div>
+                        <div class="color-hex" onclick="copyToClipboard('#463A4A')">#463A4A</div>
+                        <div class="color-usage">Глибокий, таємничий</div>
+                    </div>
+                </div>
+
+                <div class="color-card">
+                    <div class="color-preview" style="background: #4A4539;"></div>
+                    <div class="color-info">
+                        <div class="color-name">Бежево-сірий</div>
+                        <div class="color-hex" onclick="copyToClipboard('#4A4539')">#4A4539</div>
+                        <div class="color-usage">Нейтральний, універсальний</div>
+                    </div>
+                </div>
+
+                <div class="color-card">
+                    <div class="color-preview" style="background: #394A43;"></div>
+                    <div class="color-info">
+                        <div class="color-name">Морська хвиля</div>
+                        <div class="color-hex" onclick="copyToClipboard('#394A43')">#394A43</div>
+                        <div class="color-usage">Свіжий, океанічний</div>
+                    </div>
+                </div>
+
+                <div class="color-card">
+                    <div class="color-preview" style="background: #45394A;"></div>
+                    <div class="color-info">
+                        <div class="color-name">Темно-фіолетовий</div>
+                        <div class="color-hex" onclick="copyToClipboard('#45394A')">#45394A</div>
+                        <div class="color-usage">Креативний, артистичний</div>
+                    </div>
+                </div>
+
+                <div class="color-card">
+                    <div class="color-preview" style="background: #4A4139;"></div>
+                    <div class="color-info">
+                        <div class="color-name">Кавовий</div>
+                        <div class="color-hex" onclick="copyToClipboard('#4A4139')">#4A4139</div>
+                        <div class="color-usage">Енергійний, фокусний</div>
+                    </div>
+                </div>
+
+                <div class="color-card">
+                    <div class="color-preview" style="background: #394449;"></div>
+                    <div class="color-info">
+                        <div class="color-name">Сіро-синій</div>
+                        <div class="color-hex" onclick="copyToClipboard('#394449')">#394449</div>
+                        <div class="color-usage">Спокійний, збалансований</div>
+                    </div>
+                </div>
+
+                <div class="color-card">
+                    <div class="color-preview" style="background: #49394A;"></div>
+                    <div class="color-info">
+                        <div class="color-name">Винний</div>
+                        <div class="color-hex" onclick="copyToClipboard('#49394A')">#49394A</div>
+                        <div class="color-usage">Елегантний, престижний</div>
+                    </div>
+                </div>
+
+                <div class="color-card">
+                    <div class="color-preview" style="background: #3B4A39;"></div>
+                    <div class="color-info">
+                        <div class="color-name">Лісовий</div>
+                        <div class="color-hex" onclick="copyToClipboard('#3B4A39')">#3B4A39</div>
+                        <div class="color-usage">Органічний, стабільний</div>
+                    </div>
+                </div>
+
+                <div class="color-card">
+                    <div class="color-preview" style="background: #4A3A39;"></div>
+                    <div class="color-info">
+                        <div class="color-name">Червоно-коричневий</div>
+                        <div class="color-hex" onclick="copyToClipboard('#4A3A39')">#4A3A39</div>
+                        <div class="color-usage">Теплий, надійний</div>
+                    </div>
+                </div>
+
+                <div class="color-card">
+                    <div class="color-preview" style="background: #39454A;"></div>
+                    <div class="color-info">
+                        <div class="color-name">Графітовий</div>
+                        <div class="color-hex" onclick="copyToClipboard('#39454A')">#39454A</div>
+                        <div class="color-usage">Мінімалістичний, сучасний</div>
+                    </div>
+                </div>
+
+                <div class="color-card">
+                    <div class="color-preview" style="background: #42394A;"></div>
+                    <div class="color-info">
+                        <div class="color-name">Індиго</div>
+                        <div class="color-hex" onclick="copyToClipboard('#42394A')">#42394A</div>
+                        <div class="color-usage">Медитативний, глибокий</div>
+                    </div>
+                </div>
+
+                <div class="color-card">
+                    <div class="color-preview" style="background: #4A4339;"></div>
+                    <div class="color-info">
+                        <div class="color-name">Хакі</div>
+                        <div class="color-hex" onclick="copyToClipboard('#4A4339')">#4A4339</div>
+                        <div class="color-usage">Практичний, функціональний</div>
+                    </div>
+                </div>
+
+                <div class="color-card">
+                    <div class="color-preview" style="background: #394A47;"></div>
+                    <div class="color-info">
+                        <div class="color-name">Смарагдовий</div>
+                        <div class="color-hex" onclick="copyToClipboard('#394A47')">#394A47</div>
+                        <div class="color-usage">Розкішний, розумний</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Середні кольори -->
+        <div class="brightness-section medium">
+            <h2 class="section-title">
+                <span class="emoji">🌅</span>
+                Середні кольори (збалансовані)
+            </h2>
+            <div class="colors-grid">
+                <div class="color-card">
+                    <div class="color-preview" style="background: #4A6B4A;"></div>
+                    <div class="color-info">
+                        <div class="color-name">Лісовий зелений</div>
+                        <div class="color-hex" onclick="copyToClipboard('#4A6B4A')">#4A6B4A</div>
+                        <div class="color-usage">Природний, життєвий</div>
+                    </div>
+                </div>
+
+                <div class="color-card">
+                    <div class="color-preview" style="background: #4A5B6B;"></div>
+                    <div class="color-info">
+                        <div class="color-name">Океанський синій</div>
+                        <div class="color-hex" onclick="copyToClipboard('#4A5B6B')">#4A5B6B</div>
+                        <div class="color-usage">Глибокий, надійний</div>
+                    </div>
+                </div>
+
+                <div class="color-card">
+                    <div class="color-preview" style="background: #6B4A4A;"></div>
+                    <div class="color-info">
+                        <div class="color-name">Теракотовий</div>
+                        <div class="color-hex" onclick="copyToClipboard('#6B4A4A')">#6B4A4A</div>
+                        <div class="color-usage">Землистий, стабільний</div>
+                    </div>
+                </div>
+
+                <div class="color-card">
+                    <div class="color-preview" style="background: #5B4A6B;"></div>
+                    <div class="color-info">
+                        <div class="color-name">Аметистовий</div>
+                        <div class="color-hex" onclick="copyToClipboard('#5B4A6B')">#5B4A6B</div>
+                        <div class="color-usage">Розкішний, креативний</div>
+                    </div>
+                </div>
+
+                <div class="color-card">
+                    <div class="color-preview" style="background: #6B5B4A;"></div>
+                    <div class="color-info">
+                        <div class="color-name">Бронзовий</div>
+                        <div class="color-hex" onclick="copyToClipboard('#6B5B4A')">#6B5B4A</div>
+                        <div class="color-usage">Металевий, сучасний</div>
+                    </div>
+                </div>
+
+                <div class="color-card">
+                    <div class="color-preview" style="background: #4A6B6B;"></div>
+                    <div class="color-info">
+                        <div class="color-name">Бірюзовий</div>
+                        <div class="color-hex" onclick="copyToClipboard('#4A6B6B')">#4A6B6B</div>
+                        <div class="color-usage">Освіжаючий, сучасний</div>
+                    </div>
+                </div>
+
+                <div class="color-card">
+                    <div class="color-preview" style="background: #6B4A5B;"></div>
+                    <div class="color-info">
+                        <div class="color-name">Бордовий</div>
+                        <div class="color-hex" onclick="copyToClipboard('#6B4A5B')">#6B4A5B</div>
+                        <div class="color-usage">Елегантний, класичний</div>
+                    </div>
+                </div>
+
+                <div class="color-card">
+                    <div class="color-preview" style="background: #566B4A;"></div>
+                    <div class="color-info">
+                        <div class="color-name">Мохово-зелений</div>
+                        <div class="color-hex" onclick="copyToClipboard('#566B4A')">#566B4A</div>
+                        <div class="color-usage">Органічний, натуральний</div>
+                    </div>
+                </div>
+
+                <div class="color-card">
+                    <div class="color-preview" style="background: #614A6B;"></div>
+                    <div class="color-info">
+                        <div class="color-name">Пурпурно-сірий</div>
+                        <div class="color-hex" onclick="copyToClipboard('#614A6B')">#614A6B</div>
+                        <div class="color-usage">Таємничий, глибокий</div>
+                    </div>
+                </div>
+
+                <div class="color-card">
+                    <div class="color-preview" style="background: #6B5A4A;"></div>
+                    <div class="color-info">
+                        <div class="color-name">Какао</div>
+                        <div class="color-hex" onclick="copyToClipboard('#6B5A4A')">#6B5A4A</div>
+                        <div class="color-usage">Затишний, теплий</div>
+                    </div>
+                </div>
+
+                <div class="color-card">
+                    <div class="color-preview" style="background: #4A616B;"></div>
+                    <div class="color-info">
+                        <div class="color-name">Сталево-синій</div>
+                        <div class="color-hex" onclick="copyToClipboard('#4A616B')">#4A616B</div>
+                        <div class="color-usage">Індустріальний, міцний</div>
+                    </div>
+                </div>
+
+                <div class="color-card">
+                    <div class="color-preview" style="background: #6B4A61;"></div>
+                    <div class="color-info">
+                        <div class="color-name">Сливовий</div>
+                        <div class="color-hex" onclick="copyToClipboard('#6B4A61')">#6B4A61</div>
+                        <div class="color-usage">Витончений, розкішний</div>
+                    </div>
+                </div>
+
+                <div class="color-card">
+                    <div class="color-preview" style="background: #586B4A;"></div>
+                    <div class="color-info">
+                        <div class="color-name">Авокадо</div>
+                        <div class="color-hex" onclick="copyToClipboard('#586B4A')">#586B4A</div>
+                        <div class="color-usage">Свіжий, здоровий</div>
+                    </div>
+                </div>
+
+                <div class="color-card">
+                    <div class="color-preview" style="background: #4A5F6B;"></div>
+                    <div class="color-info">
+                        <div class="color-name">Грозовий</div>
+                        <div class="color-hex" onclick="copyToClipboard('#4A5F6B')">#4A5F6B</div>
+                        <div class="color-usage">Драматичний, потужний</div>
+                    </div>
+                </div>
+
+                <div class="color-card">
+                    <div class="color-preview" style="background: #6B4F4A;"></div>
+                    <div class="color-info">
+                        <div class="color-name">Іржавий</div>
+                        <div class="color-hex" onclick="copyToClipboard('#6B4F4A')">#6B4F4A</div>
+                        <div class="color-usage">Автентичний, винтажний</div>
+                    </div>
+                </div>
+
+                <div class="color-card">
+                    <div class="color-preview" style="background: #4A6B5F;"></div>
+                    <div class="color-info">
+                        <div class="color-name">Нефритовий</div>
+                        <div class="color-hex" onclick="copyToClipboard('#4A6B5F')">#4A6B5F</div>
+                        <div class="color-usage">Дорогоцінний, шляхетний</div>
+                    </div>
+                </div>
+
+                <div class="color-card">
+                    <div class="color-preview" style="background: #5F4A6B;"></div>
+                    <div class="color-info">
+                        <div class="color-name">Королівський пурпур</div>
+                        <div class="color-hex" onclick="copyToClipboard('#5F4A6B')">#5F4A6B</div>
+                        <div class="color-usage">Престижний, величний</div>
+                    </div>
+                </div>
+
+                <div class="color-card">
+                    <div class="color-preview" style="background: #6B594A;"></div>
+                    <div class="color-info">
+                        <div class="color-name">Карамельний</div>
+                        <div class="color-hex" onclick="copyToClipboard('#6B594A')">#6B594A</div>
+                        <div class="color-usage">Солодкий, привабливий</div>
+                    </div>
+                </div>
+
+                <div class="color-card">
+                    <div class="color-preview" style="background: #4A666B;"></div>
+                    <div class="color-info">
+                        <div class="color-name">Льодово-синій</div>
+                        <div class="color-hex" onclick="copyToClipboard('#4A666B')">#4A666B</div>
+                        <div class="color-usage">Холодний, чистий</div>
+                    </div>
+                </div>
+
+                <div class="color-card">
+                    <div class="color-preview" style="background: #664A6B;"></div>
+                    <div class="color-info">
+                        <div class="color-name">Орхідея</div>
+                        <div class="color-hex" onclick="copyToClipboard('#664A6B')">#664A6B</div>
+                        <div class="color-usage">Вишуканий, екзотичний</div>
+                    </div>
+                </div>
+
+                <div class="color-card">
+                    <div class="color-preview" style="background: #5D6B4A;"></div>
+                    <div class="color-info">
+                        <div class="color-name">Папороть</div>
+                        <div class="color-hex" onclick="copyToClipboard('#5D6B4A')">#5D6B4A</div>
+                        <div class="color-usage">Лісовий, таємничий</div>
+                    </div>
+                </div>
+
+                <div class="color-card">
+                    <div class="color-preview" style="background: #4A586B;"></div>
+                    <div class="color-info">
+                        <div class="color-name">Денім</div>
+                        <div class="color-hex" onclick="copyToClipboard('#4A586B')">#4A586B</div>
+                        <div class="color-usage">Повсякденний, комфортний</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Яскраві кольори -->
+        <div class="brightness-section bright">
+            <h2 class="section-title">
+                <span class="emoji">☀️</span>
+                Яскраві кольори (енергійні)
+            </h2>
+            <div class="colors-grid">
+                <div class="color-card">
+                    <div class="color-preview" style="background: #6BAF6B;"></div>
+                    <div class="color-info">
+                        <div class="color-name">Весняний зелений</div>
+                        <div class="color-hex" onclick="copyToClipboard('#6BAF6B')">#6BAF6B</div>
+                        <div class="color-usage">Енергійний, життєрадісний</div>
+                    </div>
+                </div>
+
+                <div class="color-card">
+                    <div class="color-preview" style="background: #6B8FAF;"></div>
+                    <div class="color-info">
+                        <div class="color-name">Небесно-синій</div>
+                        <div class="color-hex" onclick="copyToClipboard('#6B8FAF')">#6B8FAF</div>
+                        <div class="color-usage">Вільний, відкритий</div>
+                    </div>
+                </div>
+
+                <div class="color-card">
+                    <div class="color-preview" style="background: #AF6B6B;"></div>
+                    <div class="color-info">
+                        <div class="color-name">Коралевий</div>
+                        <div class="color-hex" onclick="copyToClipboard('#AF6B6B')">#AF6B6B</div>
+                        <div class="color-usage">Теплий, дружелюбний</div>
+                    </div>
+                </div>
+
+                <div class="color-card">
+                    <div class="color-preview" style="background: #8F6BAF;"></div>
+                    <div class="color-info">
+                        <div class="color-name">Фіалковий</div>
+                        <div class="color-hex" onclick="copyToClipboard('#8F6BAF')">#8F6BAF</div>
+                        <div class="color-usage">Креативний, інноваційний</div>
+                    </div>
+                </div>
+
+                <div class="color-card">
+                    <div class="color-preview" style="background: #AF8F6B;"></div>
+                    <div class="color-info">
+                        <div class="color-name">Золотистий</div>
+                        <div class="color-hex" onclick="copyToClipboard('#AF8F6B')">#AF8F6B</div>
+                        <div class="color-usage">Успішний, багатий</div>
+                    </div>
+                </div>
+
+                <div class="color-card">
+                    <div class="color-preview" style="background: #6BAFAF;"></div>
+                    <div class="color-info">
+                        <div class="color-name">Аквамарин</div>
+                        <div class="color-hex" onclick="copyToClipboard('#6BAFAF')">#6BAFAF</div>
+                        <div class="color-usage">Тропічний, чистий</div>
+                    </div>
+                </div>
+
+                <div class="color-card">
+                    <div class="color-preview" style="background: #AF6B8F;"></div>
+                    <div class="color-info">
+                        <div class="color-name">Рожево-червоний</div>
+                        <div class="color-hex" onclick="copyToClipboard('#AF6B8F')">#AF6B8F</div>
+                        <div class="color-usage">Пристрасний, яскравий</div>
+                    </div>
+                </div>
+
+                <div class="color-card">
+                    <div class="color-preview" style="background: #86AF6B;"></div>
+                    <div class="color-info">
+                        <div class="color-name">Лаймовий</div>
+                        <div class="color-hex" onclick="copyToClipboard('#86AF6B')">#86AF6B</div>
+                        <div class="color-usage">Свіжий, кислинковий</div>
+                    </div>
+                </div>
+
+                <div class="color-card">
+                    <div class="color-preview" style="background: #956BAF;"></div>
+                    <div class="color-info">
+                        <div class="color-name">Лілово-синій</div>
+                        <div class="color-hex" onclick="copyToClipboard('#956BAF')">#956BAF</div>
+                        <div class="color-usage">Магічний, фантастичний</div>
+                    </div>
+                </div>
+
+                <div class="color-card">
+                    <div class="color-preview" style="background: #AF946B;"></div>
+                    <div class="color-info">
+                        <div class="color-name">Пісочний</div>
+                        <div class="color-hex" onclick="copyToClipboard('#AF946B')">#AF946B</div>
+                        <div class="color-usage">Пляжний, розслаблюючий</div>
+                    </div>
+                </div>
+
+                <div class="color-card">
+                    <div class="color-preview" style="background: #6B95AF;"></div>
+                    <div class="color-info">
+                        <div class="color-name">Джинсовий</div>
+                        <div class="color-hex" onclick="copyToClipboard('#6B95AF')">#6B95AF</div>
+                        <div class="color-usage">Універсальний, стильний</div>
+                    </div>
+                </div>
+
+                <div class="color-card">
+                    <div class="color-preview" style="background: #AF6B95;"></div>
+                    <div class="color-info">
+                        <div class="color-name">Малиновий</div>
+                        <div class="color-hex" onclick="copyToClipboard('#AF6B95')">#AF6B95</div>
+                        <div class="color-usage">Солодкий, привабливий</div>
+                    </div>
+                </div>
+
+                <div class="color-card">
+                    <div class="color-preview" style="background: #8CAF6B;"></div>
+                    <div class="color-info">
+                        <div class="color-name">Салатовий</div>
+                        <div class="color-hex" onclick="copyToClipboard('#8CAF6B')">#8CAF6B</div>
+                        <div class="color-usage">Здоровий, вітамінний</div>
+                    </div>
+                </div>
+
+                <div class="color-card">
+                    <div class="color-preview" style="background: #6B8BAF;"></div>
+                    <div class="color-info">
+                        <div class="color-name">Лавандовий</div>
+                        <div class="color-hex" onclick="copyToClipboard('#6B8BAF')">#6B8BAF</div>
+                        <div class="color-usage">Ароматний, заспокійливий</div>
+                    </div>
+                </div>
+
+                <div class="color-card">
+                    <div class="color-preview" style="background: #AF7F6B;"></div>
+                    <div class="color-info">
+                        <div class="color-name">Персиковий</div>
+                        <div class="color-hex" onclick="copyToClipboard('#AF7F6B')">#AF7F6B</div>
+                        <div class="color-usage">М'який, соковитий</div>
+                    </div>
+                </div>
+
+                <div class="color-card">
+                    <div class="color-preview" style="background: #6BAFA3;"></div>
+                    <div class="color-info">
+                        <div class="color-name">М'ятний</div>
+                        <div class="color-hex" onclick="copyToClipboard('#6BAFA3')">#6BAFA3</div>
+                        <div class="color-usage">Освіжаючий, прохолодний</div>
+                    </div>
+                </div>
+
+                <div class="color-card">
+                    <div class="color-preview" style="background: #A36BAF;"></div>
+                    <div class="color-info">
+                        <div class="color-name">Рожевий кварц</div>
+                        <div class="color-hex" onclick="copyToClipboard('#A36BAF')">#A36BAF</div>
+                        <div class="color-usage">Мінеральний, цінний</div>
+                    </div>
+                </div>
+
+                <div class="color-card">
+                    <div class="color-preview" style="background: #9CAF6B;"></div>
+                    <div class="color-info">
+                        <div class="color-name">Груша</div>
+                        <div class="color-hex" onclick="copyToClipboard('#9CAF6B')">#9CAF6B</div>
+                        <div class="color-usage">Фруктовий, соковитий</div>
+                    </div>
+                </div>
+
+                <div class="color-card">
+                    <div class="color-preview" style="background: #6B9EAF;"></div>
+                    <div class="color-info">
+                        <div class="color-name">Морський бриз</div>
+                        <div class="color-hex" onclick="copyToClipboard('#6B9EAF')">#6B9EAF</div>
+                        <div class="color-usage">Свіжий, вітряний</div>
+                    </div>
+                </div>
+
+                <div class="color-card">
+                    <div class="color-preview" style="background: #AF6B7F;"></div>
+                    <div class="color-info">
+                        <div class="color-name">Арбузний</div>
+                        <div class="color-hex" onclick="copyToClipboard('#AF6B7F')">#AF6B7F</div>
+                        <div class="color-usage">Літній, соковитий</div>
+                    </div>
+                </div>
+
+                <div class="color-card">
+                    <div class="color-preview" style="background: #7FAF6B;"></div>
+                    <div class="color-info">
+                        <div class="color-name">Яблучний</div>
+                        <div class="color-hex" onclick="copyToClipboard('#7FAF6B')">#7FAF6B</div>
+                        <div class="color-usage">Хрусткий, свіжий</div>
+                    </div>
+                </div>
+
+                <div class="color-card">
+                    <div class="color-preview" style="background: #6B7FAF;"></div>
+                    <div class="color-info">
+                        <div class="color-name">Ірисовий</div>
+                        <div class="color-hex" onclick="copyToClipboard('#6B7FAF')">#6B7FAF</div>
+                        <div class="color-usage">Квітковий, ніжний</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="recommendations">
+            <h2>🏷️ Рекомендації по використанню</h2>
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px;">
+                <div>
+                    <h3 style="color: #a0a0a0; margin-bottom: 15px;">🌙 Темні кольори</h3>
+                    <div class="rec-item">
+                        <div class="rec-color" style="background: #393F4A;"></div>
+                        <div class="rec-text">
+                            <span class="rec-project">Backend/API</span> → Стабільність
+                        </div>
+                    </div>
+                    <div class="rec-item">
+                        <div class="rec-color" style="background: #394A39;"></div>
+                        <div class="rec-text">
+                            <span class="rec-project">Database</span> → Надійність
+                        </div>
+                    </div>
+                    <div class="rec-item">
+                        <div class="rec-color" style="background: #4A3943;"></div>
+                        <div class="rec-text">
+                            <span class="rec-project">Testing</span> → Фокус
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <h3 style="color: #c0c0c0; margin-bottom: 15px;">🌅 Середні кольори</h3>
+                    <div class="rec-item">
+                        <div class="rec-color" style="background: #4A6B4A;"></div>
+                        <div class="rec-text">
+                            <span class="rec-project">Frontend</span> → Збалансованість
+                        </div>
+                    </div>
+                    <div class="rec-item">
+                        <div class="rec-color" style="background: #4A5B6B;"></div>
+                        <div class="rec-text">
+                            <span class="rec-project">DevOps</span> → Професійність
+                        </div>
+                    </div>
+                    <div class="rec-item">
+                        <div class="rec-color" style="background: #5B4A6B;"></div>
+                        <div class="rec-text">
+                            <span class="rec-project">Machine Learning</span> → Креативність
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <h3 style="color: #ffd700; margin-bottom: 15px;">☀️ Яскраві кольори</h3>
+                    <div class="rec-item">
+                        <div class="rec-color" style="background: #6BAF6B;"></div>
+                        <div class="rec-text">
+                            <span class="rec-project">UI/UX</span> → Енергійність
+                        </div>
+                    </div>
+                    <div class="rec-item">
+                        <div class="rec-color" style="background: #6B8FAF;"></div>
+                        <div class="rec-text">
+                            <span class="rec-project">Mobile Apps</span> → Привабливість
+                        </div>
+                    </div>
+                    <div class="rec-item">
+                        <div class="rec-color" style="background: #AF6B6B;"></div>
+                        <div class="rec-text">
+                            <span class="rec-project">Presentation</span> → Видимість
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="copy-message" id="copyMessage">
+        Колір скопійовано! 📋
+    </div>
+
+    <script>
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text).then(function() {
+                const message = document.getElementById('copyMessage');
+                message.classList.add('show');
+                setTimeout(() => {
+                    message.classList.remove('show');
+                }, 2000);
+            });
+        }
+
+        // Додати hover ефекти
+        document.querySelectorAll('.color-card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-3px)';
+                this.style.boxShadow = '0 6px 12px rgba(0,0,0,0.4)';
+            });
+
+            card.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0)';
+                this.style.boxShadow = '0 4px 8px rgba(0,0,0,0.3)';
+            });
+        });
+    </script>
+</body>
+</html>
