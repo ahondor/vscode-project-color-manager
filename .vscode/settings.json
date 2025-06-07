@@ -1,1 +1,5 @@
-{"workbench.colorCustomizations": {"titleBar.activeBackground": "#007ACC"}, "editor.fontSize": 14}
+{
+    "workbench.colorCustomizations": {
+        "titleBar.activeBackground": "#007ACC"
+    }
+}

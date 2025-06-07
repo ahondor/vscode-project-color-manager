@@ -64,17 +64,17 @@ export class ColorPanel {
                         break;
                     case 'resetColor':
                         const confirmed = await vscode.window.showWarningMessage(
-                            'Скинути колір проекту до стандартного?',
+                            'Reset project color to default?',
                             { modal: true },
-                            'Так'
+                            'Yes'
                         );
-                        if (confirmed === 'Так') {
+                        if (confirmed === 'Yes') {
                             await this.resetToDefault();
                         }
                         break;
                     case 'copyColor':
                         await vscode.env.clipboard.writeText(message.color);
-                        vscode.window.showInformationMessage(`Колір ${message.color} скопійовано!`);
+                        vscode.window.showInformationMessage(`Color ${message.color} copied!`);
                         break;
                     case 'editColor':
                         await this.editColor(message.originalColor, message.newColor);
@@ -113,25 +113,25 @@ export class ColorPanel {
         );
         
         if (exists) {
-            vscode.window.showWarningMessage('Колір з такою назвою або кодом уже існує');
+            vscode.window.showWarningMessage('Color with this name or code already exists');
             return;
         }
 
         predefinedColors.push({ name, color });
         await config.update('predefinedColors', predefinedColors, vscode.ConfigurationTarget.Global);
         
-        vscode.window.showInformationMessage(`Додано новий колір: "${name}"`);
+        vscode.window.showInformationMessage(`Added new color: "${name}"`);
         this._update();
     }
 
     private async deleteColor(colorToDelete: ColorItem) {
         const confirmed = await vscode.window.showWarningMessage(
-            `Видалити колір "${colorToDelete.name}"?`,
+            `Delete color "${colorToDelete.name}"?`,
             { modal: true },
-            'Так, видалити'
+            'Yes, delete'
         );
 
-        if (confirmed === 'Так, видалити') {
+        if (confirmed === 'Yes, delete') {
             const config = vscode.workspace.getConfiguration('projectColorManager');
             const predefinedColors: ColorItem[] = config.get('predefinedColors', []);
             
@@ -141,19 +141,19 @@ export class ColorPanel {
             
             await config.update('predefinedColors', filteredColors, vscode.ConfigurationTarget.Global);
             
-            vscode.window.showInformationMessage(`Видалено колір: "${colorToDelete.name}"`);
+            vscode.window.showInformationMessage(`Deleted color: "${colorToDelete.name}"`);
             this._update();
         }
     }
 
     private async deleteRecentColor(colorToDelete: ColorItem) {
         const confirmed = await vscode.window.showWarningMessage(
-            `Видалити збережений колір "${colorToDelete.name}"?`,
+            `Delete saved color "${colorToDelete.name}"?`,
             { modal: true },
-            'Так, видалити'
+            'Yes, delete'
         );
 
-        if (confirmed === 'Так, видалити') {
+        if (confirmed === 'Yes, delete') {
             const config = vscode.workspace.getConfiguration('projectColorManager');
             const recentColors: ColorItem[] = config.get('recentColors', []);
             
@@ -163,22 +163,22 @@ export class ColorPanel {
             
             await config.update('recentColors', filteredColors, vscode.ConfigurationTarget.Global);
             
-            vscode.window.showInformationMessage(`Видалено збережений колір: "${colorToDelete.name}"`);
+            vscode.window.showInformationMessage(`Deleted saved color: "${colorToDelete.name}"`);
             this._update();
         }
     }
 
     private async clearRecentColors() {
         const confirmed = await vscode.window.showWarningMessage(
-            'Очистити всі збережені кольори?',
+            'Clear all saved colors?',
             { modal: true },
-            'Так, очистити'
+            'Yes, clear'
         );
 
-        if (confirmed === 'Так, очистити') {
+        if (confirmed === 'Yes, clear') {
             const config = vscode.workspace.getConfiguration('projectColorManager');
             await config.update('recentColors', [], vscode.ConfigurationTarget.Global);
-            vscode.window.showInformationMessage('Збережені кольори очищено');
+            vscode.window.showInformationMessage('Saved colors cleared');
             this._update();
         }
     }
@@ -195,7 +195,7 @@ export class ColorPanel {
             predefinedColors[colorIndex] = newColor;
             await config.update('predefinedColors', predefinedColors, vscode.ConfigurationTarget.Global);
             
-            vscode.window.showInformationMessage(`Колір оновлено: "${originalColor.name}" → "${newColor.name}"`);
+            vscode.window.showInformationMessage(`Color updated: "${originalColor.name}" → "${newColor.name}"`);
             this._update();
         }
     }
@@ -212,7 +212,7 @@ export class ColorPanel {
             recentColors[colorIndex] = newColor;
             await config.update('recentColors', recentColors, vscode.ConfigurationTarget.Global);
             
-            vscode.window.showInformationMessage(`Збережений колір оновлено: "${originalColor.name}" → "${newColor.name}"`);
+            vscode.window.showInformationMessage(`Saved color updated: "${originalColor.name}" → "${newColor.name}"`);
             this._update();
         }
     }
@@ -252,7 +252,7 @@ export class ColorPanel {
         const currentColor = this.getCurrentColor();
         const currentColorName = this.getCurrentColorName();
 
-        // Групуємо кольори за яскравістю як у прикладі
+        // Group colors by brightness as in the example
         const darkColors = predefinedColors.filter(c => this.isDarkColor(c.color));
         const mediumColors = predefinedColors.filter(c => this.isMediumColor(c.color));
         const brightColors = predefinedColors.filter(c => this.isBrightColor(c.color));
@@ -262,7 +262,7 @@ export class ColorPanel {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🎨 Кольори проекту</title>
+    <title>🎨 Project Colors</title>
     <style>
         body {
             font-family: var(--vscode-font-family);
@@ -629,21 +629,21 @@ export class ColorPanel {
 </head>
 <body>
     <div class="container">
-        <h1>🎨 Кольори проекту</h1>
-
-        <div class="current-color-section">
-            <h3>Поточний колір</h3>
+            <h1>🎨 Project Colors</h1>
+    
+    <div class="current-color-section">
+        <h3>Current Color</h3>
             <div class="current-color-preview" style="background: ${currentColor || 'transparent'};"></div>
             <div><strong>${currentColorName}</strong></div>
             ${currentColor ? `<div class="color-hex" onclick="copyColor('${currentColor}')">${currentColor}</div>` : ''}
         </div>
 
         <div class="add-color-section">
-            <h3>Додати новий колір</h3>
+            <h3>Add New Color</h3>
             <div class="form-grid">
-                <input type="text" class="form-input" id="colorName" placeholder="Назва кольору (наприклад: Мій синій)" />
+                <input type="text" class="form-input" id="colorName" placeholder="Color name (e.g.: My Blue)" />
                 <input type="color" class="color-input" id="colorValue" value="#007ACC" />
-                <button class="btn" onclick="addColor()">Додати</button>
+                <button class="btn" onclick="addColor()">Add</button>
             </div>
         </div>
 
@@ -651,21 +651,21 @@ export class ColorPanel {
         <div class="brightness-section">
             <h2 class="section-title">
                 <span>🕒</span>
-                Останні кольори
+                Recent Colors
             </h2>
             <div class="colors-grid">
                 ${recentColors.slice(0, 8).map(color => `
                     <div class="color-card ${currentColor === color.color ? 'current' : ''}" id="recent-${color.name.replace(/\s+/g, '-')}-${color.color.replace('#', '')}">
-                        <button class="edit-btn" onclick="editRecentColor('${color.name}', '${color.color}')" title="Редагувати">✏️</button>
-                        <button class="delete-btn" onclick="deleteRecentColor('${color.name}', '${color.color}')" title="Видалити">×</button>
+                        <button class="edit-btn" onclick="editRecentColor('${color.name}', '${color.color}')" title="Edit">✏️</button>
+                        <button class="delete-btn" onclick="deleteRecentColor('${color.name}', '${color.color}')" title="Delete">×</button>
                         <div class="color-preview" style="background: ${color.color};"></div>
                         <div class="color-info">
                             <div class="color-name">${color.name}</div>
                             <div class="color-hex" onclick="copyColor('${color.color}')">${color.color}</div>
                         </div>
-                        <button class="apply-btn" onclick="selectColor('${color.name}', '${color.color}')">Застосувати колір</button>
+                        <button class="apply-btn" onclick="selectColor('${color.name}', '${color.color}')">Apply Color</button>
                         <div class="edit-form">
-                            <input type="text" class="edit-input" value="${color.name}" placeholder="Назва кольору">
+                            <input type="text" class="edit-input" value="${color.name}" placeholder="Color name">
                             <input type="color" class="edit-color-input" value="${color.color}">
                             <div class="edit-actions">
                                 <button class="edit-btn-small edit-save" onclick="saveRecentColor('${color.name}', '${color.color}')">💾</button>
@@ -676,7 +676,7 @@ export class ColorPanel {
                 `).join('')}
             </div>
             <div class="actions">
-                <button class="btn btn-secondary" onclick="clearRecentColors()">Очистити всі збережені</button>
+                <button class="btn btn-secondary" onclick="clearRecentColors()">Clear All Saved</button>
             </div>
         </div>
         ` : ''}
@@ -685,21 +685,21 @@ export class ColorPanel {
         <div class="brightness-section">
             <h2 class="section-title">
                 <span>🎨</span>
-                Усі кольори
+                All Colors
             </h2>
             <div class="colors-grid">
                 ${predefinedColors.map(color => `
                     <div class="color-card ${currentColor === color.color ? 'current' : ''}" id="predefined-${color.name.replace(/\s+/g, '-')}-${color.color.replace('#', '')}">
-                        <button class="edit-btn" onclick="editColor('${color.name}', '${color.color}')" title="Редагувати">✏️</button>
-                        <button class="delete-btn" onclick="deleteColor('${color.name}', '${color.color}')" title="Видалити">×</button>
+                        <button class="edit-btn" onclick="editColor('${color.name}', '${color.color}')" title="Edit">✏️</button>
+                        <button class="delete-btn" onclick="deleteColor('${color.name}', '${color.color}')" title="Delete">×</button>
                         <div class="color-preview" style="background: ${color.color};"></div>
                         <div class="color-info">
                             <div class="color-name">${color.name}</div>
                             <div class="color-hex" onclick="copyColor('${color.color}')">${color.color}</div>
                         </div>
-                        <button class="apply-btn" onclick="selectColor('${color.name}', '${color.color}')">Застосувати колір</button>
+                        <button class="apply-btn" onclick="selectColor('${color.name}', '${color.color}')">Apply Color</button>
                         <div class="edit-form">
-                            <input type="text" class="edit-input" value="${color.name}" placeholder="Назва кольору">
+                            <input type="text" class="edit-input" value="${color.name}" placeholder="Color name">
                             <input type="color" class="edit-color-input" value="${color.color}">
                             <div class="edit-actions">
                                 <button class="edit-btn-small edit-save" onclick="saveColor('${color.name}', '${color.color}')">💾</button>
@@ -712,18 +712,18 @@ export class ColorPanel {
         </div>
         ` : `
         <div class="empty-state">
-            <h3>🎨 Почніть додавати кольори!</h3>
-            <p>Використайте форму вище, щоб додати перший колір для вашого проекту.</p>
+            <h3>🎨 Start Adding Colors!</h3>
+            <p>Use the form above to add the first color for your project.</p>
         </div>
         `}
 
         <div class="actions">
-            <button class="btn btn-secondary" onclick="resetColor()">Скинути до стандартного</button>
+            <button class="btn btn-secondary" onclick="resetColor()">Reset to Default</button>
         </div>
     </div>
 
     <div class="copy-message" id="copyMessage">
-        Колір скопійовано! 📋
+        Color copied! 📋
     </div>
 
     <script>
@@ -746,7 +746,7 @@ export class ColorPanel {
             if (!name) {
                 vscode.postMessage({
                     type: 'showError',
-                    message: 'Будь ласка, введіть назву кольору'
+                    message: 'Please enter a color name'
                 });
                 return;
             }
@@ -800,7 +800,7 @@ export class ColorPanel {
             }, 2000);
         }
 
-        // Додати колір по Enter
+        // Add color on Enter
         document.getElementById('colorName').addEventListener('keypress', function(e) {
             if (e.key === 'Enter') {
                 addColor();
@@ -836,7 +836,7 @@ export class ColorPanel {
                 if (!newName) {
                     vscode.postMessage({
                         type: 'showError',
-                        message: 'Будь ласка, введіть назву кольору'
+                        message: 'Please enter a color name'
                     });
                     return;
                 }
@@ -862,7 +862,7 @@ export class ColorPanel {
                 if (!newName) {
                     vscode.postMessage({
                         type: 'showError',
-                        message: 'Будь ласка, введіть назву кольору'
+                        message: 'Please enter a color name'
                     });
                     return;
                 }
@@ -923,7 +923,7 @@ export class ColorPanel {
     private getCurrentColorName(): string {
         const currentColor = this.getCurrentColor();
         if (!currentColor) {
-            return 'Стандартний';
+            return 'Default';
         }
 
         const config = vscode.workspace.getConfiguration('projectColorManager');
@@ -937,7 +937,7 @@ export class ColorPanel {
     }
 
     private isDarkColor(color: string): boolean {
-        // Простий алгоритм для визначення темних кольорів
+        // Simple algorithm to determine dark colors
         const hex = color.replace('#', '');
         const r = parseInt(hex.substr(0, 2), 16);
         const g = parseInt(hex.substr(2, 2), 16);

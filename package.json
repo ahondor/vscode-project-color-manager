@@ -1,481 +1,481 @@
 {
-  "name": "project-color-manager",
-  "displayName": "Project Color Manager",
-  "description": "Quickly customize the title bar color for your project",
-  "version": "0.0.1",
-  "author": {
-    "name": "Andrii Yova",
-    "email": "wotshef@gmail.com"
-  },
-  "publisher": "ahondor",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/ahondor/vscode-project-color-manager.git"
-  },
-  "homepage": "https://github.com/ahondor/vscode-project-color-manager#readme",
-  "bugs": {
-    "url": "https://github.com/ahondor/vscode-project-color-manager/issues"
-  },
-  "license": "MIT",
-  "keywords": [
-    "vscode",
-    "extension",
-    "color",
-    "theme",
-    "titlebar",
-    "project",
-    "customization"
-  ],
-  "engines": {
-    "vscode": "^1.74.0"
-  },
-  "categories": [
-    "Other"
-  ],
-  "activationEvents": [
-    "onStartupFinished"
-  ],
-  "main": "./out/extension.js",
-  "contributes": {
-    "commands": [
-      {
-        "command": "projectColorManager.setColor",
-        "title": "Set Project Color"
-      },
-      {
-        "command": "projectColorManager.openColorPicker",
-        "title": "Open Project Color Picker"
-      },
-      {
-        "command": "projectColorManager.openVisualInterface",
-        "title": "Open Visual Color Interface"
-      }
-    ],
-    "views": {
-      "explorer": [
-        {
-          "id": "projectColorManager.colorView",
-          "name": "Project Colors",
-          "type": "webview",
-          "when": "workspaceFolderCount > 0"
-        }
-      ]
+    "name": "project-color-manager",
+    "displayName": "Project Color Manager",
+    "description": "Quickly customize the title bar color for your project",
+    "version": "0.0.1",
+    "author": {
+        "name": "Andrii Yova",
+        "email": "wotshef@gmail.com"
     },
-    "viewsWelcome": [
-      {
-        "view": "projectColorManager.colorView",
-        "contents": "Visual interface for managing project colors.\n[Open Interface](command:projectColorManager.openVisualInterface)"
-      }
+    "publisher": "ahondor",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/ahondor/vscode-project-color-manager.git"
+    },
+    "homepage": "https://github.com/ahondor/vscode-project-color-manager#readme",
+    "bugs": {
+        "url": "https://github.com/ahondor/vscode-project-color-manager/issues"
+    },
+    "license": "MIT",
+    "keywords": [
+        "vscode",
+        "extension",
+        "color",
+        "theme",
+        "titlebar",
+        "project",
+        "customization"
     ],
-    "configuration": {
-      "title": "Project Color Manager",
-      "properties": {
-        "projectColorManager.predefinedColors": {
-          "type": "array",
-          "default": [
-            {
-              "name": "🌿 Green Very Dark",
-              "color": "#1a3d1a"
-            },
-            {
-              "name": "🌿 Green Dark",
-              "color": "#2d5a2d"
-            },
-            {
-              "name": "🌿 Green Medium Dark",
-              "color": "#407740"
-            },
-            {
-              "name": "🌿 Green Medium",
-              "color": "#5a945a"
-            },
-            {
-              "name": "🌿 Green Bright",
-              "color": "#73b173"
-            },
-            {
-              "name": "🌿 Green Very Bright",
-              "color": "#8dce8d"
-            },
-            {
-              "name": "🔵 Blue Very Dark",
-              "color": "#1a1a3d"
-            },
-            {
-              "name": "🔵 Blue Dark",
-              "color": "#2d2d5a"
-            },
-            {
-              "name": "🔵 Blue Medium Dark",
-              "color": "#404077"
-            },
-            {
-              "name": "🔵 Blue Medium",
-              "color": "#5a5a94"
-            },
-            {
-              "name": "🔵 Blue Bright",
-              "color": "#7373b1"
-            },
-            {
-              "name": "🔵 Blue Very Bright",
-              "color": "#8d8dce"
-            },
-            {
-              "name": "💎 Cyan Very Dark",
-              "color": "#1a3d3d"
-            },
-            {
-              "name": "💎 Cyan Dark",
-              "color": "#2d5a5a"
-            },
-            {
-              "name": "💎 Cyan Medium Dark",
-              "color": "#407777"
-            },
-            {
-              "name": "💎 Cyan Medium",
-              "color": "#5a9494"
-            },
-            {
-              "name": "💎 Cyan Bright",
-              "color": "#73b1b1"
-            },
-            {
-              "name": "💎 Cyan Very Bright",
-              "color": "#8dcece"
-            },
-            {
-              "name": "🌸 Lavender Very Dark",
-              "color": "#2d1a3d"
-            },
-            {
-              "name": "🌸 Lavender Dark",
-              "color": "#4a2d5a"
-            },
-            {
-              "name": "🌸 Lavender Medium Dark",
-              "color": "#674077"
-            },
-            {
-              "name": "🌸 Lavender Medium",
-              "color": "#845a94"
-            },
-            {
-              "name": "🌸 Lavender Bright",
-              "color": "#a173b1"
-            },
-            {
-              "name": "🌸 Lavender Very Bright",
-              "color": "#be8dce"
-            },
-            {
-              "name": "🧡 Orange Very Dark",
-              "color": "#3d2a1a"
-            },
-            {
-              "name": "🧡 Orange Dark",
-              "color": "#5a472d"
-            },
-            {
-              "name": "🧡 Orange Medium Dark",
-              "color": "#776440"
-            },
-            {
-              "name": "🧡 Orange Medium",
-              "color": "#94815a"
-            },
-            {
-              "name": "🧡 Orange Bright",
-              "color": "#b19e73"
-            },
-            {
-              "name": "🧡 Orange Very Bright",
-              "color": "#cebb8d"
-            },
-            {
-              "name": "💜 Purple Very Dark",
-              "color": "#2a1a3d"
-            },
-            {
-              "name": "💜 Purple Dark",
-              "color": "#472d5a"
-            },
-            {
-              "name": "💜 Purple Medium Dark",
-              "color": "#644077"
-            },
-            {
-              "name": "💜 Purple Medium",
-              "color": "#815a94"
-            },
-            {
-              "name": "💜 Purple Bright",
-              "color": "#9e73b1"
-            },
-            {
-              "name": "💜 Purple Very Bright",
-              "color": "#bb8dce"
-            },
-            {
-              "name": "🌺 Pink Very Dark",
-              "color": "#3d1a2a"
-            },
-            {
-              "name": "🌺 Pink Dark",
-              "color": "#5a2d47"
-            },
-            {
-              "name": "🌺 Pink Medium Dark",
-              "color": "#774064"
-            },
-            {
-              "name": "🌺 Pink Medium",
-              "color": "#945a81"
-            },
-            {
-              "name": "🌺 Pink Bright",
-              "color": "#b1739e"
-            },
-            {
-              "name": "🌺 Pink Very Bright",
-              "color": "#ce8dbb"
-            },
-            {
-              "name": "❤️ Red Very Dark",
-              "color": "#3d1a1a"
-            },
-            {
-              "name": "❤️ Red Dark",
-              "color": "#5a2d2d"
-            },
-            {
-              "name": "❤️ Red Medium Dark",
-              "color": "#774040"
-            },
-            {
-              "name": "❤️ Red Medium",
-              "color": "#945a5a"
-            },
-            {
-              "name": "❤️ Red Bright",
-              "color": "#b17373"
-            },
-            {
-              "name": "❤️ Red Very Bright",
-              "color": "#ce8d8d"
-            },
-            {
-              "name": "🍇 Maroon Very Dark",
-              "color": "#3d1a30"
-            },
-            {
-              "name": "🍇 Maroon Dark",
-              "color": "#5a2d50"
-            },
-            {
-              "name": "🍇 Maroon Medium Dark",
-              "color": "#774070"
-            },
-            {
-              "name": "🍇 Maroon Medium",
-              "color": "#945a90"
-            },
-            {
-              "name": "🍇 Maroon Bright",
-              "color": "#b173b0"
-            },
-            {
-              "name": "🍇 Maroon Very Bright",
-              "color": "#ce8dd0"
-            },
-            {
-              "name": "💛 Yellow Very Dark",
-              "color": "#3d3d1a"
-            },
-            {
-              "name": "💛 Yellow Dark",
-              "color": "#5a5a2d"
-            },
-            {
-              "name": "💛 Yellow Medium Dark",
-              "color": "#777740"
-            },
-            {
-              "name": "💛 Yellow Medium",
-              "color": "#94945a"
-            },
-            {
-              "name": "💛 Yellow Bright",
-              "color": "#b1b173"
-            },
-            {
-              "name": "💛 Yellow Very Bright",
-              "color": "#cece8d"
-            },
-            {
-              "name": "🤍 Gray Very Dark",
-              "color": "#2a2a2a"
-            },
-            {
-              "name": "🤍 Gray Dark",
-              "color": "#474747"
-            },
-            {
-              "name": "🤍 Gray Medium Dark",
-              "color": "#646464"
-            },
-            {
-              "name": "🤍 Gray Medium",
-              "color": "#818181"
-            },
-            {
-              "name": "🤍 Gray Bright",
-              "color": "#9e9e9e"
-            },
-            {
-              "name": "🤍 Gray Very Bright",
-              "color": "#bbbbbb"
-            },
-            {
-              "name": "⚪ Сірий світлий дуже темний",
-              "color": "#404040"
-            },
-            {
-              "name": "⚪ Сірий світлий темний",
-              "color": "#5d5d5d"
-            },
-            {
-              "name": "⚪ Сірий світлий середньо-темний",
-              "color": "#7a7a7a"
-            },
-            {
-              "name": "⚪ Сірий світлий середній",
-              "color": "#979797"
-            },
-            {
-              "name": "⚪ Сірий світлий яскравий",
-              "color": "#b4b4b4"
-            },
-            {
-              "name": "⚪ Сірий світлий дуже яскравий",
-              "color": "#d1d1d1"
-            },
-            {
-              "name": "⚫ Сірий дуже темний",
-              "color": "#2a2a2a"
-            },
-            {
-              "name": "⚫ Сірий темний",
-              "color": "#3d3d3d"
-            },
-            {
-              "name": "⚫ Сірий середньо-темний",
-              "color": "#505050"
-            },
-            {
-              "name": "⚫ Сірий середній",
-              "color": "#636363"
-            },
-            {
-              "name": "⚫ Сірий яскравий",
-              "color": "#767676"
-            },
-            {
-              "name": "⚫ Сірий дуже яскравий",
-              "color": "#898989"
-            },
-            {
-              "name": "⚫ Чорний дуже темний",
-              "color": "#1a1a1a"
-            },
-            {
-              "name": "⚫ Чорний темний",
-              "color": "#2d2d2d"
-            },
-            {
-              "name": "⚫ Чорний середньо-темний",
-              "color": "#404040"
-            },
-            {
-              "name": "⚫ Чорний середній",
-              "color": "#535353"
-            },
-            {
-              "name": "⚫ Чорний яскравий",
-              "color": "#666666"
-            },
-            {
-              "name": "⚫ Чорний дуже яскравий",
-              "color": "#797979"
-            },
-            {
-              "name": "🤎 Коричневий дуже темний",
-              "color": "#2d1f1a"
-            },
-            {
-              "name": "🤎 Коричневий темний",
-              "color": "#4a362d"
-            },
-            {
-              "name": "🤎 Коричневий середньо-темний",
-              "color": "#674d40"
-            },
-            {
-              "name": "🤎 Коричневий середній",
-              "color": "#84645a"
-            },
-            {
-              "name": "🤎 Коричневий яскравий",
-              "color": "#a17b73"
-            },
-            {
-              "name": "🤎 Коричневий дуже яскравий",
-              "color": "#be928d"
-            },
-            {
-              "name": "🍷 Бордовий дуже темний",
-              "color": "#3d1a1f"
-            },
-            {
-              "name": "🍷 Бордовий темний",
-              "color": "#5a2d36"
-            },
-            {
-              "name": "🍷 Бордовий середньо-темний",
-              "color": "#77404d"
-            },
-            {
-              "name": "🍷 Бордовий середній",
-              "color": "#945a64"
-            },
-            {
-              "name": "🍷 Бордовий яскравий",
-              "color": "#b1737b"
-            },
-            {
-              "name": "🍷 Бордовий дуже яскравий",
-              "color": "#ce8d92"
+    "engines": {
+        "vscode": "^1.74.0"
+    },
+    "categories": [
+        "Other"
+    ],
+    "activationEvents": [
+        "onStartupFinished"
+    ],
+    "main": "./out/extension.js",
+    "contributes": {
+        "commands": [
+            {
+                "command": "projectColorManager.setColor",
+                "title": "Set Project Color"
+            },
+            {
+                "command": "projectColorManager.openColorPicker",
+                "title": "Open Project Color Picker"
+            },
+            {
+                "command": "projectColorManager.openVisualInterface",
+                "title": "Open Visual Color Interface"
             }
-          ],
-          "description": "Predefined colors for quick selection"
+        ],
+        "views": {
+            "explorer": [
+                {
+                    "id": "projectColorManager.colorView",
+                    "name": "Project Colors",
+                    "type": "webview",
+                    "when": "workspaceFolderCount > 0"
+                }
+            ]
         },
-        "projectColorManager.recentColors": {
-          "type": "array",
-          "default": [],
-          "description": "Recently used colors"
+        "viewsWelcome": [
+            {
+                "view": "projectColorManager.colorView",
+                "contents": "Visual interface for managing project colors.\n[Open Interface](command:projectColorManager.openVisualInterface)"
+            }
+        ],
+        "configuration": {
+            "title": "Project Color Manager",
+            "properties": {
+                "projectColorManager.predefinedColors": {
+                    "type": "array",
+                    "default": [
+                        {
+                            "name": "🌿 Green Very Dark",
+                            "color": "#1a3d1a"
+                        },
+                        {
+                            "name": "🌿 Green Dark",
+                            "color": "#2d5a2d"
+                        },
+                        {
+                            "name": "🌿 Green Medium Dark",
+                            "color": "#407740"
+                        },
+                        {
+                            "name": "🌿 Green Medium",
+                            "color": "#5a945a"
+                        },
+                        {
+                            "name": "🌿 Green Bright",
+                            "color": "#73b173"
+                        },
+                        {
+                            "name": "🌿 Green Very Bright",
+                            "color": "#8dce8d"
+                        },
+                        {
+                            "name": "🔵 Blue Very Dark",
+                            "color": "#1a1a3d"
+                        },
+                        {
+                            "name": "🔵 Blue Dark",
+                            "color": "#2d2d5a"
+                        },
+                        {
+                            "name": "🔵 Blue Medium Dark",
+                            "color": "#404077"
+                        },
+                        {
+                            "name": "🔵 Blue Medium",
+                            "color": "#5a5a94"
+                        },
+                        {
+                            "name": "🔵 Blue Bright",
+                            "color": "#7373b1"
+                        },
+                        {
+                            "name": "🔵 Blue Very Bright",
+                            "color": "#8d8dce"
+                        },
+                        {
+                            "name": "💎 Cyan Very Dark",
+                            "color": "#1a3d3d"
+                        },
+                        {
+                            "name": "💎 Cyan Dark",
+                            "color": "#2d5a5a"
+                        },
+                        {
+                            "name": "💎 Cyan Medium Dark",
+                            "color": "#407777"
+                        },
+                        {
+                            "name": "💎 Cyan Medium",
+                            "color": "#5a9494"
+                        },
+                        {
+                            "name": "💎 Cyan Bright",
+                            "color": "#73b1b1"
+                        },
+                        {
+                            "name": "💎 Cyan Very Bright",
+                            "color": "#8dcece"
+                        },
+                        {
+                            "name": "🌸 Lavender Very Dark",
+                            "color": "#2d1a3d"
+                        },
+                        {
+                            "name": "🌸 Lavender Dark",
+                            "color": "#4a2d5a"
+                        },
+                        {
+                            "name": "🌸 Lavender Medium Dark",
+                            "color": "#674077"
+                        },
+                        {
+                            "name": "🌸 Lavender Medium",
+                            "color": "#845a94"
+                        },
+                        {
+                            "name": "🌸 Lavender Bright",
+                            "color": "#a173b1"
+                        },
+                        {
+                            "name": "🌸 Lavender Very Bright",
+                            "color": "#be8dce"
+                        },
+                        {
+                            "name": "🧡 Orange Very Dark",
+                            "color": "#3d2a1a"
+                        },
+                        {
+                            "name": "🧡 Orange Dark",
+                            "color": "#5a472d"
+                        },
+                        {
+                            "name": "🧡 Orange Medium Dark",
+                            "color": "#776440"
+                        },
+                        {
+                            "name": "🧡 Orange Medium",
+                            "color": "#94815a"
+                        },
+                        {
+                            "name": "🧡 Orange Bright",
+                            "color": "#b19e73"
+                        },
+                        {
+                            "name": "🧡 Orange Very Bright",
+                            "color": "#cebb8d"
+                        },
+                        {
+                            "name": "💜 Purple Very Dark",
+                            "color": "#2a1a3d"
+                        },
+                        {
+                            "name": "💜 Purple Dark",
+                            "color": "#472d5a"
+                        },
+                        {
+                            "name": "💜 Purple Medium Dark",
+                            "color": "#644077"
+                        },
+                        {
+                            "name": "💜 Purple Medium",
+                            "color": "#815a94"
+                        },
+                        {
+                            "name": "💜 Purple Bright",
+                            "color": "#9e73b1"
+                        },
+                        {
+                            "name": "💜 Purple Very Bright",
+                            "color": "#bb8dce"
+                        },
+                        {
+                            "name": "🌺 Pink Very Dark",
+                            "color": "#3d1a2a"
+                        },
+                        {
+                            "name": "🌺 Pink Dark",
+                            "color": "#5a2d47"
+                        },
+                        {
+                            "name": "🌺 Pink Medium Dark",
+                            "color": "#774064"
+                        },
+                        {
+                            "name": "🌺 Pink Medium",
+                            "color": "#945a81"
+                        },
+                        {
+                            "name": "🌺 Pink Bright",
+                            "color": "#b1739e"
+                        },
+                        {
+                            "name": "🌺 Pink Very Bright",
+                            "color": "#ce8dbb"
+                        },
+                        {
+                            "name": "❤️ Red Very Dark",
+                            "color": "#3d1a1a"
+                        },
+                        {
+                            "name": "❤️ Red Dark",
+                            "color": "#5a2d2d"
+                        },
+                        {
+                            "name": "❤️ Red Medium Dark",
+                            "color": "#774040"
+                        },
+                        {
+                            "name": "❤️ Red Medium",
+                            "color": "#945a5a"
+                        },
+                        {
+                            "name": "❤️ Red Bright",
+                            "color": "#b17373"
+                        },
+                        {
+                            "name": "❤️ Red Very Bright",
+                            "color": "#ce8d8d"
+                        },
+                        {
+                            "name": "🍇 Maroon Very Dark",
+                            "color": "#3d1a30"
+                        },
+                        {
+                            "name": "🍇 Maroon Dark",
+                            "color": "#5a2d50"
+                        },
+                        {
+                            "name": "🍇 Maroon Medium Dark",
+                            "color": "#774070"
+                        },
+                        {
+                            "name": "🍇 Maroon Medium",
+                            "color": "#945a90"
+                        },
+                        {
+                            "name": "🍇 Maroon Bright",
+                            "color": "#b173b0"
+                        },
+                        {
+                            "name": "🍇 Maroon Very Bright",
+                            "color": "#ce8dd0"
+                        },
+                        {
+                            "name": "💛 Yellow Very Dark",
+                            "color": "#3d3d1a"
+                        },
+                        {
+                            "name": "💛 Yellow Dark",
+                            "color": "#5a5a2d"
+                        },
+                        {
+                            "name": "💛 Yellow Medium Dark",
+                            "color": "#777740"
+                        },
+                        {
+                            "name": "💛 Yellow Medium",
+                            "color": "#94945a"
+                        },
+                        {
+                            "name": "💛 Yellow Bright",
+                            "color": "#b1b173"
+                        },
+                        {
+                            "name": "💛 Yellow Very Bright",
+                            "color": "#cece8d"
+                        },
+                        {
+                            "name": "🤍 Gray Very Dark",
+                            "color": "#2a2a2a"
+                        },
+                        {
+                            "name": "🤍 Gray Dark",
+                            "color": "#474747"
+                        },
+                        {
+                            "name": "🤍 Gray Medium Dark",
+                            "color": "#646464"
+                        },
+                        {
+                            "name": "🤍 Gray Medium",
+                            "color": "#818181"
+                        },
+                        {
+                            "name": "🤍 Gray Bright",
+                            "color": "#9e9e9e"
+                        },
+                        {
+                            "name": "🤍 Gray Very Bright",
+                            "color": "#bbbbbb"
+                        },
+                        {
+                            "name": "⚪ Light Gray Very Dark",
+                            "color": "#404040"
+                        },
+                        {
+                            "name": "⚪ Light Gray Dark",
+                            "color": "#5d5d5d"
+                        },
+                        {
+                            "name": "⚪ Light Gray Medium Dark",
+                            "color": "#7a7a7a"
+                        },
+                        {
+                            "name": "⚪ Light Medium Gray",
+                            "color": "#979797"
+                        },
+                        {
+                            "name": "⚪ Light Gray Bright",
+                            "color": "#b4b4b4"
+                        },
+                        {
+                            "name": "⚪ Light Gray Very Bright",
+                            "color": "#d1d1d1"
+                        },
+                        {
+                            "name": "⚫ Gray Very Dark",
+                            "color": "#2a2a2a"
+                        },
+                        {
+                            "name": "⚫ Gray Dark",
+                            "color": "#3d3d3d"
+                        },
+                        {
+                            "name": "⚫ Gray Medium Dark",
+                            "color": "#505050"
+                        },
+                        {
+                            "name": "⚫ Gray Medium",
+                            "color": "#636363"
+                        },
+                        {
+                            "name": "⚫ Gray Bright",
+                            "color": "#767676"
+                        },
+                        {
+                            "name": "⚫ Gray Very Bright",
+                            "color": "#898989"
+                        },
+                        {
+                            "name": "⚫ Black Very Dark",
+                            "color": "#1a1a1a"
+                        },
+                        {
+                            "name": "⚫ Black Dark",
+                            "color": "#2d2d2d"
+                        },
+                        {
+                            "name": "⚫ Black Medium Dark",
+                            "color": "#404040"
+                        },
+                        {
+                            "name": "⚫ Medium Black",
+                            "color": "#535353"
+                        },
+                        {
+                            "name": "⚫ Black Bright",
+                            "color": "#666666"
+                        },
+                        {
+                            "name": "⚫ Black Very Bright",
+                            "color": "#797979"
+                        },
+                        {
+                            "name": "🤎 Brown Very Dark",
+                            "color": "#2d1f1a"
+                        },
+                        {
+                            "name": "🤎 Brown Dark",
+                            "color": "#4a362d"
+                        },
+                        {
+                            "name": "🤎 Brown Medium Dark",
+                            "color": "#674d40"
+                        },
+                        {
+                            "name": "🤎 Medium Brown",
+                            "color": "#84645a"
+                        },
+                        {
+                            "name": "🤎 Brown Bright",
+                            "color": "#a17b73"
+                        },
+                        {
+                            "name": "🤎 Brown Very Bright",
+                            "color": "#be928d"
+                        },
+                        {
+                            "name": "🍷 Burgundy Very Dark",
+                            "color": "#3d1a1f"
+                        },
+                        {
+                            "name": "🍷 Burgundy Dark",
+                            "color": "#5a2d36"
+                        },
+                        {
+                            "name": "🍷 Burgundy Medium Dark",
+                            "color": "#77404d"
+                        },
+                        {
+                            "name": "🍷 Medium Burgundy",
+                            "color": "#945a64"
+                        },
+                        {
+                            "name": "🍷 Burgundy Bright",
+                            "color": "#b1737b"
+                        },
+                        {
+                            "name": "🍷 Burgundy Very Bright",
+                            "color": "#ce8d92"
+                        }
+                    ],
+                    "description": "Predefined colors for quick selection"
+                },
+                "projectColorManager.recentColors": {
+                    "type": "array",
+                    "default": [],
+                    "description": "Recently used colors"
+                }
+            }
         }
-      }
+    },
+    "scripts": {
+        "vscode:prepublish": "npm run compile",
+        "compile": "tsc -p ./",
+        "watch": "tsc -watch -p ./"
+    },
+    "devDependencies": {
+        "@types/vscode": "^1.74.0",
+        "@types/node": "16.x",
+        "typescript": "^4.9.4"
     }
-  },
-  "scripts": {
-    "vscode:prepublish": "npm run compile",
-    "compile": "tsc -p ./",
-    "watch": "tsc -watch -p ./"
-  },
-  "devDependencies": {
-    "@types/vscode": "^1.74.0",
-    "@types/node": "16.x",
-    "typescript": "^4.9.4"
-  }
-} 
+}
